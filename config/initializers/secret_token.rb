@@ -4,4 +4,4 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-Cheatin::Application.config.secret_token = '7f6cb17d4144e3d697ba6c9093b96f0a20e617164264620d28addd59c32955e69d8ec61d45c8d960b6b3cd02313d43ffce27878f23320e94d688028b5752dd53'
+Cheataz::Application.config.secret_token = '52e4a41b012fcc10fa2c62831a68f9befada88d9be16b89261c57f1e35a02f5862fa998eb606e6c5ae09eb82e4a9ac3ec33b06e8ea086e458771dee396d6c6a0'
