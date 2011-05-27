@@ -1,4 +1,6 @@
 Cheataz::Application.routes.draw do
+  resources :sheets
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
