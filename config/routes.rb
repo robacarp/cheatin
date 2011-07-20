@@ -1,6 +1,8 @@
 Cheataz::Application.routes.draw do
   resources :sheets
 
+  get 'tags' => "tags#index"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

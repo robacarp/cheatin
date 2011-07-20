@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110527031949) do
+ActiveRecord::Schema.define(:version => 20110720040612) do
 
   create_table "sheets", :force => true do |t|
     t.string   "title"
@@ -18,6 +18,11 @@ ActiveRecord::Schema.define(:version => 20110527031949) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_markdown"
+  end
+
+  create_table "tags", :primary_key => "tag_id", :force => true do |t|
+    t.string "name", :null => false
   end
 
 end

@@ -14,6 +14,10 @@ gem 'sass'
 
 gem 'jquery-rails'
 
+#use mongrel because webrick sucks
+gem 'mongrel'
+
+gem 'rdiscount'
 # Use unicorn as the web server
 # gem 'unicorn'
 
