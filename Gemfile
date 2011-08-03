@@ -16,6 +16,7 @@ gem 'jquery-rails'
 
 #use mongrel because webrick sucks
 gem 'mongrel'
+gem 'haml'
 
 gem 'rdiscount'
 # Use unicorn as the web server
