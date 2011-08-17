@@ -1,0 +1,63 @@
+@mixin rounded-top($r:5px) {
+  border-top-right-radius: #{$r}; border-top-left-radius: #{$r};
+  -moz-border-radius-topright: #{$r}; -moz-border-radius-topleft: #{$r};
+  -webkit-border-top-right-radius: #{$r}; -webkit-border-top-left-radius: #{$r};
+}
+
+@mixin rounded-bottom($r:5px) {
+  border-bottom-right-radius: #{$r}; border-bottom-left-radius: #{$r};
+  -moz-border-radius-bottomright: #{$r}; -moz-border-radius-bottomleft: #{$r};
+  -webkit-border-bottom-right-radius: #{$r}; -webkit-border-bottom-left-radius: #{$r};
+}
+
+@mixin inset-shadow($color:#888, $distance:5px, $blur:0, $spread:0) {
+  -moz-box-shadow   : inset $distance $distance $blur $spread $color;
+  -webkit-box-shadow: inset $distance $distance $blur $spread $color;
+  box-shadow        : inset $distance $distance $blur $spread $color;
+}
+
+@mixin shadow($color:#888, $distance:5px, $blur:0, $spread:0) {
+  -moz-box-shadow   : $distance $distance $blur $spread $color;
+  -webkit-box-shadow: $distance $distance $blur $spread $color;
+  box-shadow        : $distance $distance $blur $spread $color;
+}
+
+@mixin rounded($r:5px) { @include rounded-top($r); @include rounded-bottom($r); }
+@mixin clearfix { overflow:hidden; width:100%; }
+
+
+
+
+body {
+  background: #CCCCCC;
+  font-family:Georgia;
+  font-size:16px;
+  line-height:1.4em;
+}
+
+#page_wrapper {
+  margin: 0 auto;
+  width: 960px;
+  background: #FFFFFF;
+
+  #flashes {
+    .error {
+      background: #FFBBBB;
+      border: 1px solid #FF0000;
+    }
+    .warning {
+      background: #FFFBBB;
+      border: 1px solid #FFF000;
+    }
+    .notice {
+      background: #9999FF;
+      border: 1px solid #0000FF;
+    }
+    .flash {
+      @include rounded(10px);
+    }
+  }
+
+  @include rounded(5px);
+  @include shadow(#555, 0, 10px);
+}

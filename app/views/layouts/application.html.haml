@@ -1,0 +1,14 @@
+!!!5
+%html
+  %head
+    %title Cheataz
+    = stylesheet_link_tag :all
+    = javascript_include_tag :defaults
+    = csrf_meta_tag
+  %body
+    #page_wrapper
+      #flashes
+        - flash.each do |type,msg|
+          .flash{:class=>type}
+            = msg
+      = yield
