@@ -8,6 +8,10 @@ require 'digest/sha2'
 #     salt: 1978-01-01 55:55:55
 #
 class User < ActiveRecord::Base
+  validates_uniqueness_of   :email
+  validates_presence_of     :email
+  validates_confirmation_of :password
+
   before_save :encrypt_password
 
   attr_accessor :password
