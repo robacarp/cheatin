@@ -19,16 +19,9 @@ gem 'mongrel'
 gem 'haml'
 
 gem 'rdiscount'
-# Use unicorn as the web server
-# gem 'unicorn'
-
-# Deploy with Capistrano
-# gem 'capistrano'
-
-# To use debugger
-# gem 'ruby-debug19', :require => 'ruby-debug'
 
 group :test do
   # Pretty printed test output
+  gem 'ruby-debug', :require => 'ruby-debug'
   gem 'turn', :require => false
 end
