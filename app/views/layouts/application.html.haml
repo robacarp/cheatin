@@ -21,4 +21,9 @@
         - flash.each do |type,msg|
           .flash{:class=>type}
             = msg
-      = yield
+      #content
+        %ul#menu
+          - if authorize! :create_sheet
+            %li= link_to 'New Sheet', new_sheet_path
+          %li= link_to 'About', about_path
+        = yield
