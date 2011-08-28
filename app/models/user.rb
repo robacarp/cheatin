@@ -8,6 +8,7 @@ require 'digest/sha2'
 #     salt: 1978-01-01 55:55:55
 #
 class User < ActiveRecord::Base
+  before_save :encrypt_password
 
   attr_accessor :password
 
@@ -21,5 +22,21 @@ class User < ActiveRecord::Base
 
   def self.digest password, salt
     Digest::SHA512.hexdigest "__#{salt}__#{password}__"
+  end
+
+  private
+  def encrypt_password
+    if password_hash.nil? && (password.nil? || password_confirmation.nil?)
+      false
+    elsif password.nil? && password_confirmation.nil?
+      true
+    elsif ( password.nil? && !password_confirmation.nil? ) ||
+      ( !password.nil? && password_confirmation.nil? ) ||
+      ( password != password_confirmation )
+       false
+    else
+      self.password_hash = self.class.digest password, salt
+      true
+    end
   end
 end
