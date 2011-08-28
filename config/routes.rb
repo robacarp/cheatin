@@ -1,4 +1,6 @@
 Cheataz::Application.routes.draw do
+  root :to => 'home#index'
+
   resources :sheets
 
   get 'tags' => "tags#index"
