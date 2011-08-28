@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
       #set up session
       session[:user_id] = user.id.to_s
       flash[:notice] = "YOU ARE SUCCESS."
-      redirect root
+      redirect_to root_path
     else
       flash[:notice] = "Incorrect email or password. Try agains."
       render 'index'
