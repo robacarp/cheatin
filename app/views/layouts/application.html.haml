@@ -6,6 +6,16 @@
     = javascript_include_tag :defaults
     = csrf_meta_tag
   %body
+    #header
+      #user_control
+        - if user_signed_in?
+          = link_to current_user.email, user_profile_path(current_user)
+        - else
+          = form_for User.new, :url => session_begin_path do |f|
+            = f.text_field  :email, :value => 'email'
+            = f.password_field :password, :value => 'password'
+            = f.submit 'Login'
+      %h1 Codecheetsheets
     #page_wrapper
       #flashes
         - flash.each do |type,msg|

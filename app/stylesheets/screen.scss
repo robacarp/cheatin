@@ -33,6 +33,40 @@ body {
   font-family:Georgia;
   font-size:16px;
   line-height:1.4em;
+  margin:0;
+  padding:0;
+}
+
+/*  TODO investigate this on a wide screen...it'll look funny */
+#header {
+  background-color:#000;
+  color:#ddd;
+  height:40px;
+
+  #user_control {
+    float:right;
+
+    form {
+      height:40px;
+      padding-top:7px;
+
+      input[type=text],input[type=password] {
+        width:10em;
+      }
+    }
+
+    a {
+      color:#ddd;
+      text-decoration:none;
+      line-height:40px;
+      margin-right:10px;
+    }
+  }
+
+  h1 {
+    margin:0;
+    padding:10px;
+  }
 }
 
 #page_wrapper {
@@ -54,8 +88,13 @@ body {
       border: 1px solid #0000FF;
     }
     .flash {
-      @include rounded(10px);
+      @include rounded(3px);
+      padding-left:8px;
     }
+  }
+
+  #content {
+    padding-left:8px;
   }
 
   @include rounded(5px);
