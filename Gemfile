@@ -20,8 +20,11 @@ gem 'haml'
 
 gem 'rdiscount'
 
-group :test do
+group :test, :development do
   # Pretty printed test output
   gem 'ruby-debug', :require => 'ruby-debug'
   gem 'turn', :require => false
+  gem 'factory_girl_rails'
+  gem 'rspec-rails'
+  gem 'capybara'
 end
