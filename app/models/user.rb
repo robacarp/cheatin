@@ -30,17 +30,34 @@ class User < ActiveRecord::Base
 
   private
   def encrypt_password
-    if password_hash.nil? && (password.nil? || password_confirmation.nil?)
-      false
-    elsif password.nil? && password_confirmation.nil?
-      true
-    elsif ( password.nil? && !password_confirmation.nil? ) ||
-      ( !password.nil? && password_confirmation.nil? ) ||
-      ( password != password_confirmation )
-       false
+    if password_hash.nil?
+      if (password.nil? || password_confirmation.nil?)
+        false
+      elsif password != password_confirmation
+        false
+      else
+        self.password_hash = self.class.digest password, salt
+      end
     else
-      self.password_hash = self.class.digest password, salt
-      true
+      if (password.nil? && password_confirmation.nil?)
+        true
+      elsif password != password_confirmation
+        false
+      else
+        self.password_hash = self.class.digest password, salt
+      end
     end
+   # if password_hash.nil? && (password.nil? || password_confirmation.nil?)
+   #   false
+   # elsif password.nil? && password_confirmation.nil?
+   #   true
+   # elsif ( password.nil? && !password_confirmation.nil? ) ||
+   #   ( !password.nil? && password_confirmation.nil? ) ||
+   #   ( password != password_confirmation )
+   #    false
+   # else
+   #   self.password_hash = self.class.digest password, salt
+   #   true
+   # end
   end
 end

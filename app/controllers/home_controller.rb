@@ -5,3 +5,5 @@ class HomeController < ApplicationController
     flash[:warning] = "WARNING WARNING WARNING WARNING WARNING"
   end
 end
+
+
