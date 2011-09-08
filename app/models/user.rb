@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   attr_accessor :password
 
   def salt
-    self[:salt] ||= Time.now
+    self[:salt] ||= Time.now.to_s
   end
 
   def valid_password? password
@@ -30,19 +30,16 @@ class User < ActiveRecord::Base
 
   private
   def encrypt_password
+    #XXX assume password and password_confirmation are equal because of validations
     if password_hash.nil?
-      if (password.nil? || password_confirmation.nil?)
-        false
-      elsif password != password_confirmation
+      if password.nil?
         false
       else
         self.password_hash = self.class.digest password, salt
       end
     else
-      if (password.nil? && password_confirmation.nil?)
+      if password.nil?
         true
-      elsif password != password_confirmation
-        false
       else
         self.password_hash = self.class.digest password, salt
       end
