@@ -16,9 +16,10 @@ ActiveRecord::Schema.define(:version => 20110803035915) do
     t.string   "title"
     t.text     "content"
     t.integer  "user_id"
+    t.string   "language"
+    t.boolean  "is_markdown"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "is_markdown"
   end
 
   create_table "tags", :primary_key => "tag_id", :force => true do |t|

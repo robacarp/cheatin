@@ -1,26 +1,11 @@
 <h1>Listing sheets</h1>
 
-<table>
-  <tr>
-    <th>Title</th>
-    <th>Content</th>
-    <th>User</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<ul>
 
-<% @sheets.each do |sheet| %>
-  <tr>
-    <td><%= sheet.title %></td>
-    <td><%= sheet.content %></td>
-    <td><%= sheet.user_id %></td>
-    <td><%= link_to 'Show', sheet %></td>
-    <td><%= link_to 'Edit', edit_sheet_path(sheet) %></td>
-    <td><%= link_to 'Destroy', sheet, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
+    <% Sheet::languages.each do |language| %>
+      <li><a href="/languages/<%= linkify(language) %>"><%= language %></a></li>
+    <% end %>
+</ul>
 
 <br />
 
