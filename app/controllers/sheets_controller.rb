@@ -39,4 +39,8 @@ class SheetsController < ApplicationController
     @sheet = Sheet.find(params[:id])
     @sheet.destroy
   end
+
+  def languages
+    
+  end
 end

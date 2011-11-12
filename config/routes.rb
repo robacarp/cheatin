@@ -1,6 +1,7 @@
 Cheataz::Application.routes.draw do
   root :to => 'home#index'
 
+  match '/languages' => 'sheets#languages'
   resources :sheets
 
   get 'tags' => "tags#index"
