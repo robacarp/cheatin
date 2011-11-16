@@ -1,3 +1,25 @@
+:javascript
+  $( function(){
+        $('#sheet_language').keypress(keyprss);
+    });
+
+  function keyprss(evt){
+    $.ajax('/languages/search.json',
+    {
+      data :{ 
+        search : evt.target.value + String.fromCharCode(evt.keyCode)
+      },
+      success: updateToolTip
+    })
+  }
+
+
+  function updateToolTip(json){
+    txt = '<li>' + json.join('</li><li>') + '</li>'
+    $('#tooltip').html('<ul>'+txt+'</ul>');
+  }
+
+#tooltip
 = form_for(@sheet) do |f|
   - if @sheet.errors.any?
     #error_explanation

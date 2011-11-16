@@ -4,10 +4,15 @@ class Sheet < ActiveRecord::Base
   validates :language, :presence => true
 
   #class (static) method
-  def self.languages
+  def self.languages search = ''
+    search = search.gsub ' ', '%'
+    search = '%' if search.blank?
+
+    #TODO FIXME XXX PAY ATTENTION SQLINJECT'd
     records = self.find_by_sql(<<-SQL
      SELECT *
      FROM sheets
+     where language like '%#{search}%'
      GROUP BY `language`
     SQL
     )

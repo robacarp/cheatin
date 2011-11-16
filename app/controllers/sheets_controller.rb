@@ -41,6 +41,20 @@ class SheetsController < ApplicationController
   end
 
   def languages
-    
+		@languages = nil
+		unless params[:search].nil?
+			@languages = Sheet.languages params[:search]
+		else 
+			@languages = Sheet.languages
+		end
+
+ 		respond_to do |format|
+			format.html
+			format.json { render :json => @languages }
+		end
+  end
+
+  def language
+    @sheets = Sheet.where :language => params[:search]
   end
 end
