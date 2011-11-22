@@ -1,7 +1,23 @@
+:css
+  .langAuto {
+    border: 1px solid #000000;
+    width: 200px;
+    background: #CBF5F3;
+    margin-top: -1px;
+    cursor: pointer;
+    padding-left: 10px;
+  }
+
+  #autoComplete {
+    list-style-type: none;
+    margin-left: -38px;
+    margin-top: -2px;
+  }
 :javascript
   $( function(){
         $('#sheet_language').keypress(keyprss);
     });
+  
 
   function keyprss(evt){
     $.ajax('/languages/search.json',
@@ -15,11 +31,18 @@
 
 
   function updateToolTip(json){
-    txt = '<li>' + json.join('</li><li>') + '</li>'
-    $('#tooltip').html('<ul>'+txt+'</ul>');
+    txt = '<li class="langAuto">' + json.join('</li><li class="langAuto">') + '</li>'
+    $('#tooltip').html('<ul id="autoComplete">'+txt+'</ul>');
+    $(".langAuto").click(function() {
+      $("#sheet_language").val(this.innerText);
+    });
+    $(".langAuto").hover(function() {
+      $(this).css("backgroundColor", "#A3D6F7");
+    }, function() {
+      $(this).css("backgroundColor", "#CBF5F3");
+    });
   }
 
-#tooltip
 = form_for(@sheet) do |f|
   - if @sheet.errors.any?
     #error_explanation
@@ -35,7 +58,8 @@
   .field
     = f.label :language #TODO: railscasts episode 258
     %br
-    = f.text_field :language
+    = f.text_field :language, :autocomplete => :off
+    #tooltip
   .field
     = f.label :content
     %br
