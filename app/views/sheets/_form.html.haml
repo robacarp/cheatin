@@ -1,45 +1,113 @@
 :css
+  input[type=text] {
+    width:200px;
+  }
+
   .langAuto {
     border: 1px solid #000000;
-    width: 200px;
+    border-width:0 1px 1px;
     background: #CBF5F3;
-    margin-top: -1px;
     cursor: pointer;
     padding-left: 10px;
+    display:block;
+  }
+
+  li.selected {
+    background: #A3D6F7;
   }
 
   #autoComplete {
     list-style-type: none;
-    margin-left: -38px;
-    margin-top: -2px;
+    position:absolute;
+    padding:0;
+    margin:0;
+    width: 200px;
+    z-index:5;
   }
+
+  #sheet_language {
+    width:200px;
+    outline:none;
+  }
+
 :javascript
   $( function(){
-        $('#sheet_language').keypress(keyprss);
+        $('#sheet_language').keydown(function(evt){
+          console.log(evt.keyCode);
+          if (evt.keyCode == 40  || evt.keyCode == 38 || evt.keyCode == 13 || evt.keyCode == 9 || evt.keyCode == 27)
+            return doTheKeyDance(evt.keyCode);
+          if (window.timer)
+            clearTimeout(window.timer)
+          window.timer = setTimeout(keyprss,200);
+        });
     });
-  
+   
+  function doTheKeyDance(keyCode) {
+    if (keyCode == 40 || keyCode == 9) {//down or tab
+      if (keyCode == 9 && $('.langAuto').length == 0) //go away
+        return true;
+      if ($(".selected").length == 0)
+        $(".langAuto").first().addClass("selected");
+      else
+        $(".selected").removeClass("selected").next().addClass("selected");
+    }
+    else if(keyCode == 38) {//up?
+      if ($(".selected").length == 0)
+        $(".langAuto").last().addClass("selected");
+      else
+        $(".selected").removeClass("selected").prev().addClass("selected");
+    }
+    else if (keyCode == 13) {//enter
+      if ($(".langAuto").length == 0)
+        return true;
+      selectItem();
+    }
+    else if (keyCode == 27) {//escape
+      hideTheMenu();
+    }
+    return false;
+  }
 
-  function keyprss(evt){
+  function keyprss(){
+    search = $('#sheet_language').val();
+
+    if (search.length == 0)
+      return $('#tooltip').hide();
+
     $.ajax('/languages/search.json',
     {
       data :{ 
-        search : evt.target.value + String.fromCharCode(evt.keyCode)
+        search : search 
       },
       success: updateToolTip
-    })
+    });
+  }
+
+  function hideTheMenu() {
+      $("#tooltip").html("");
+  }
+
+  function selectItem() {
+    $("#sheet_language").val($(".selected").html());
+    hideTheMenu();
   }
 
 
   function updateToolTip(json){
+    if (json.length <= 0)
+      return $('#tooltip').hide();
+      
     txt = '<li class="langAuto">' + json.join('</li><li class="langAuto">') + '</li>'
     $('#tooltip').html('<ul id="autoComplete">'+txt+'</ul>');
+    var ele = $('#sheet_language')
+    $('#autoComplete').css({top:ele.offset().top + ele.outerHeight() + 'px', width:ele.outerWidth() + 'px'}).show();
     $(".langAuto").click(function() {
-      $("#sheet_language").val(this.innerText);
-    });
-    $(".langAuto").hover(function() {
-      $(this).css("backgroundColor", "#A3D6F7");
+      selectItem();
+    }).hover(function() {
+      $('.selected').removeClass("selected");
+      $(this).addClass("selected");
     }, function() {
-      $(this).css("backgroundColor", "#CBF5F3");
+      $(this).removeClass("selected");
     });
   }
 
@@ -56,10 +124,11 @@
     %br
     = f.text_field :title
   .field
-    = f.label :language #TODO: railscasts episode 258
+    = f.label :language
     %br
     = f.text_field :language, :autocomplete => :off
-    #tooltip
+    #wrappa
+      #tooltip
   .field
     = f.label :content
     %br
